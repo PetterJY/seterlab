@@ -1,0 +1,36 @@
+[Unit]
+Description=Sonarr show manager
+
+[Container]
+# Image
+Image=lscr.io/linuxserver/sonarr:latest
+ContainerName=sonarr
+HostName=sonarr
+AutoUpdate=registry
+
+# User 
+UserNS=keep-id
+User=0
+Group=0
+Environment=PUID=1000
+Environment=PGID=1000
+
+# Environment
+Environment=TZ=Europe/Oslo
+
+# Network
+Network=media.network
+
+# Storage
+Volume=%h/.appdata/seterlab/streaming/sonarr/config:/config:Z
+Volume=/data/seterlab/streaming/data:/data:z
+
+# Security
+NoNewPrivileges=true
+
+[Service]
+Restart=always
+ExecStartPost=-/usr/bin/podman exec nginx nginx -s reload
+
+[Install]
+WantedBy=default.target

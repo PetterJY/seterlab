@@ -1,0 +1,33 @@
+[Unit]
+Description=Application dashboard
+
+[Container]
+# Image
+Image=ghcr.io/gethomepage/homepage:latest
+ContainerName=homepage
+HostName=homepage
+AutoUpdate=registry
+
+# User
+UserNS=keep-id
+User=%U
+Group=%G
+
+# Network
+Network=homepage.network
+
+# Environment
+Environment=HOMEPAGE_ALLOWED_HOSTS=homepage.seterlab.no,localhost:3000
+Environment=LOG_TARGETS=stdout
+
+# Storage
+Volume=%h/repos/seterlab/homepage/config:/config:Z
+Volume=%h/repos/seterlab/homepage/public:/app/public/icons:Z
+# Volume=%h/var/run/docker.sock:/car/run/docker.sock:ro
+
+[Service]
+Restart=always
+ExecStartPost=-/usr/bin/podman exec nginx nginx -s reload
+
+[Install]
+WantedBy=default.target

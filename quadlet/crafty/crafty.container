@@ -1,0 +1,33 @@
+[Unit]
+Description=Minecraft Server Wrapper
+
+[Container]
+# Image
+Image=docker.io/arcadiatechnology/crafty-4:latest
+ContainerName=crafty
+HostName=crafty
+AutoUpdate=registry
+Environment=TZ=Europe/Oslo
+
+# Network
+Network=crafty.network
+PublishPort=25565:25565
+IP=10.90.0.10
+
+# Storage
+Volume=/data/seterlab/crafty/backups:/crafty/backups:Z
+Volume=%h/.appdata/seterlab/crafty/logs:/crafty/logs:Z
+Volume=%h/.appdata/seterlab/crafty/servers:/crafty/servers:Z
+Volume=%h/.appdata/seterlab/crafty/config:/crafty/app/config:Z
+Volume=%h/.appdata/seterlab/crafty/import:/crafty/import:Z
+
+# Resources
+PodmanArgs=--memory=8g --cpus=4
+
+[Service]
+Restart=always
+ExecStartPost=-/usr/bin/podman exec nginx nginx -s reload
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

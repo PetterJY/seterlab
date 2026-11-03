@@ -1,0 +1,27 @@
+[Unit]
+Description=Nginx reverse proxy
+
+[Container]
+# Image
+Image=docker.io/library/nginx:stable-trixie
+ContainerName=nginx
+AutoUpdate=registry
+
+# Network
+Network=homepage.network
+Network=crafty.network
+Network=flybymedia.network
+Network=rental.network
+Network=media.network
+PublishPort=443:443 
+PublishPort=80:80
+
+# Storage
+Volume=%h/repos/seterlab/nginx/conf.d:/etc/nginx/conf.d:ro,Z
+Volume=%h/.appdata/seterlab/certbot/config:/etc/letsencrypt:ro,z
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

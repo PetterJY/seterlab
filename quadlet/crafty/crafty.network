@@ -1,0 +1,7 @@
+[Unit]
+Description=Shared network for the crafty service.
+
+[Network]
+NetworkName=crafty
+Subnet=10.90.0.0/24
+Gateway=10.90.0.1

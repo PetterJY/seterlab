@@ -1,0 +1,44 @@
+[Unit]
+Description=Seerr media request manager
+
+[Container]
+# Image
+Image=ghcr.io/seerr-team/seerr:latest
+ContainerName=seerr
+HostName=seerr
+AutoUpdate=registry
+RunInit=true
+
+# User
+UserNS=keep-id
+User=%U
+Group=%G
+
+# Environment
+Environment=TZ=Europe/Oslo
+Environment=LOG_LEVEL=debug
+#Environment=PORT=5055
+
+# Network
+Network=media.network
+
+# Storage
+Volume=%h/.appdata/seterlab/streaming/seerr/config:/app/config:Z
+
+# Health check
+HealthCmd=wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/settings/public || exit 1
+HealthStartPeriod=20s
+HealthTimeout=3s
+HealthInterval=15s
+HealthRetries=3
+
+# Security
+NoNewPrivileges=true
+DropCapability=ALL
+
+[Service]
+Restart=always
+ExecStartPost=-/usr/bin/podman exec nginx nginx -s reload
+
+[Install]
+WantedBy=default.target

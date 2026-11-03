@@ -1,0 +1,35 @@
+[Unit]
+Description=Jellyfin media server
+
+[Container]
+# Image
+Image=docker.io/jellyfin/jellyfin:latest
+ContainerName=jellyfin
+HostName=jellyfin
+AutoUpdate=registry
+
+# User
+UserNS=keep-id
+User=%U
+Group=%G
+
+# Hardware Transcoding
+AddDevice=/dev/dri/renderD128
+GroupAdd=keep-groups
+
+# Network
+Network=media.network
+PublishPort=8096:8096
+PublishPort=7359:7359/udp
+
+# Storage
+Volume=%h/.appdata/seterlab/streaming/jellyfin/config:/config:Z
+Volume=%h/.appdata/seterlab/streaming/jellyfin/cache:/cache:Z
+Volume=/data/seterlab/streaming/data/media:/data/media:ro,z
+
+[Service]
+Restart=always
+ExecStartPost=-/usr/bin/podman exec nginx nginx -s reload
+
+[Install]
+WantedBy=default.target
