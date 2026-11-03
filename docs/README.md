@@ -4,15 +4,7 @@ Configuration for Seterlab, my home server: a Lenovo V50s SFF running Ubuntu Ser
 
 ## Architecture
 
-```text
-Device on the tailnet
-  │  <service>.seterlab.no → the server's Tailscale address
-  ▼
-Tailscale → ufw → Nginx container (TLS for *.seterlab.no)
-  │  proxy_pass http://<container>:<port>
-  ├── <stack> network ── <service>  <service>
-  └── <stack> network ── <service>
-```
+![Seterlab architecture](architecture.svg)
 
 Every service runs as a rootless Podman container, with one `.container` file per service and one `.network` file per stack. The apps' own data, like databases and settings, lives on the server and isn't in this repo.
 
