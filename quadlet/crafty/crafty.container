@@ -22,7 +22,7 @@ Volume=%h/.appdata/seterlab/crafty/config:/crafty/app/config:Z
 Volume=%h/.appdata/seterlab/crafty/import:/crafty/import:Z
 
 # Resources
-PodmanArgs=--memory=8g --cpus=4
+PodmanArgs=--memory=11.5g --cpus=6
 
 [Service]
 Restart=always
