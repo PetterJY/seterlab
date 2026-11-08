@@ -11,7 +11,7 @@ Environment=TZ=Europe/Oslo
 
 # Network
 Network=crafty.network
-PublishPort=25565:25565
+PublishPort=25565-25566:25565-25566
 IP=10.90.0.10
 
 # Storage
