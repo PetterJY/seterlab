@@ -9,8 +9,8 @@ AutoUpdate=registry
 
 Network=nginx.network
 Network=rental.network
-PublishPort=8080:8080
-PublishPort=8443:8443
+PublishPort=8080:80
+PublishPort=8443:443
 
 Volume=%h/repos/seterlab/nginx/conf.d:/etc/nginx/conf.d:ro,Z
 Volume=%h/repos/seterlab/web:/usr/share/nginx/html:ro,Z

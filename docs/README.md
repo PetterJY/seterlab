@@ -26,7 +26,7 @@ Each account has its own Nginx container. HTTP only redirects to HTTPS, and TLS 
 
 The private Nginx listens on ports 80 and 443. Its config is in `private/nginx/conf.d/`, with one server block per subdomain.
 
-The public Nginx listens on ports 8080 and 8443, which the router forwards from ports 80 and 443 on the internet. Its config is in `public/nginx/conf.d/`. Each public site has its own certificate, checked over HTTP, so the account holds no DNS credentials.
+The public Nginx is published on host ports 8080 and 8443, which the router forwards from ports 80 and 443 on the internet. Its config is in `public/nginx/conf.d/`. Each public site has its own certificate, checked over HTTP, so the account holds no DNS credentials.
 
 ## Tailscale
 
