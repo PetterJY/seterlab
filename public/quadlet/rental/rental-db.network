@@ -1,0 +1,7 @@
+[Unit]
+Description=Network for the rental database.
+
+[Network]
+NetworkName=rental-db
+
+Internal=true

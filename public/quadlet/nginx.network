@@ -1,0 +1,8 @@
+[Unit]
+Description=Network for Nginx.
+
+[Network]
+NetworkName=nginx
+
+Subnet=10.90.1.0/24
+Gateway=10.90.1.1

@@ -1,9 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="660" viewBox="0 0 720 660" role="img" aria-labelledby="title desc">
-  <title id="title">Seterlab architecture</title>
-  <desc id="desc">Devices on the tailnet reach Seterlab through a Tailscale WireGuard tunnel. On the server, ufw lets the traffic through to one Nginx container, which ends TLS for *.seterlab.no and passes requests over plain HTTP to service containers on per-stack Podman networks. The containers keep their data on an NVMe and an HDD through bind mounts.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="780" viewBox="0 0 960 780" role="img" aria-labelledby="title desc">
+  <title id="title">Seterlab architecture, with the public account</title>
+  <desc id="desc">Two entry paths reach Seterlab. Devices on the tailnet come through Tailscale to the private account's Nginx on ports 80 and 443, which serves every private subdomain with a wildcard certificate. Visitors on the internet come through the home router, which forwards ports 80 and 443 to 8080 and 8443, to the public account's Nginx, which serves seterlab.no and rental.seterlab.no with a certificate per site. The two accounts are isolated from each other. The containers keep their data on an NVMe and an HDD through bind mounts.</desc>
   <style>
     .bg { fill: #ffffff; stroke: #d1d9e0; }
     .panel { fill: #f6f8fa; stroke: #d1d9e0; }
+    .account { fill: #ffffff; stroke: #d1d9e0; }
     .blue { fill: #ddf4ff; stroke: #54aeff; }
     .green { fill: #dafbe1; stroke: #4ac26b; }
     .purple { fill: #fbefff; stroke: #c297ff; }
@@ -12,6 +13,7 @@
     .gate { fill: #ffffff; stroke: #818b98; }
     .line { stroke: #818b98; fill: none; stroke-width: 1.5; }
     .dots { stroke: #818b98; fill: none; stroke-width: 1.5; stroke-dasharray: 2 4; stroke-linecap: round; }
+    .wall { stroke: #818b98; fill: none; stroke-width: 1.5; stroke-dasharray: 6 4; }
     .head { fill: #818b98; }
     .icon { fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
     .i-blue { stroke: #0969da; } .i-green { stroke: #1a7f37; } .i-orange { stroke: #bc4c00; }
@@ -21,21 +23,22 @@
     .m { font-size: 13px; fill: #59636e; }
     .s { font-size: 12px; fill: #59636e; }
     .mono { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace; font-size: 12.5px; fill: #59636e; }
-    
+    @media (prefers-color-scheme: dark) {
       .bg { fill: #0d1117; stroke: #3d444d; }
       .panel { fill: #151b23; stroke: #3d444d; }
+      .account { fill: #0d1117; stroke: #3d444d; }
       .blue { fill: #0f2340; stroke: #1f6feb; }
       .green { fill: #0f2a1b; stroke: #238636; }
       .purple { fill: #231a3a; stroke: #8957e5; }
       .orange { fill: #2c1a0e; stroke: #bd561d; }
       .chip { fill: #0d1117; stroke: #8957e5; }
       .gate { fill: #0d1117; stroke: #656c76; }
-      .line, .dots { stroke: #656c76; }
+      .line, .dots, .wall { stroke: #656c76; }
       .head { fill: #656c76; }
       .i-blue { stroke: #4493f8; } .i-green { stroke: #3fb950; } .i-orange { stroke: #db6d28; }
       text { fill: #f0f6fc; }
       .m, .s, .mono { fill: #9198a1; }
-    
+    }
   </style>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -43,96 +46,139 @@
     </marker>
   </defs>
 
-  <rect class="bg" x="0.5" y="0.5" width="719" height="659" rx="12"/>
+  <rect class="bg" x="0.5" y="0.5" width="959" height="779" rx="12"/>
 
-  <!-- Devices -->
-  <rect class="blue" x="210" y="40" width="300" height="44" rx="22"/>
-  <g class="icon i-blue">
+  <!-- Private entry: devices and Tailscale -->
+  <rect class="blue" x="102" y="30" width="300" height="44" rx="22"/>
+  <g class="icon i-blue" transform="translate(-108 -10)">
     <rect x="234" y="54" width="20" height="13" rx="2"/>
     <path d="M230 71 h28"/>
     <rect x="263" y="52" width="11" height="19" rx="2.5"/>
     <path d="M267 67.5 h3"/>
   </g>
-  <text class="b" x="290" y="67">Devices on the tailnet</text>
+  <text class="b" x="182" y="57">Devices on the tailnet</text>
+  <path class="line" d="M252 74 V104" marker-end="url(#arrow)"/>
 
-  <path class="line" d="M360 84 V114" marker-end="url(#arrow)"/>
-
-  <!-- Tailscale -->
-  <rect class="blue" x="40" y="118" width="640" height="44" rx="10"/>
-  <g class="icon i-blue">
+  <rect class="blue" x="72" y="108" width="360" height="44" rx="10"/>
+  <g class="icon i-blue" transform="translate(32 -10)">
     <path d="M70 129 l9 3.5 v7 c0 5.5 -4 9 -9 11 c-5 -2 -9 -5.5 -9 -11 v-7 z"/>
     <path d="M66.5 139.5 l2.5 2.5 l4.5 -5"/>
   </g>
-  <text x="92" y="145"><tspan class="b">Tailscale</tspan><tspan class="m" dx="8">WireGuard tunnel, checked against the access policy</tspan></text>
+  <text x="124" y="135"><tspan class="b">Tailscale</tspan><tspan class="m" dx="8">WireGuard, access policy</tspan></text>
+  <path class="line" d="M252 152 V190" marker-end="url(#arrow)"/>
 
-  <path class="line" d="M360 162 V190" marker-end="url(#arrow)"/>
-  <text class="mono" x="372" y="183">&lt;service&gt;.seterlab.no</text>
+  <!-- Public entry: visitors and the router -->
+  <rect class="blue" x="558" y="30" width="300" height="44" rx="22"/>
+  <g class="icon i-blue">
+    <circle cx="600" cy="52" r="10"/>
+    <ellipse cx="600" cy="52" rx="4.5" ry="10"/>
+    <path d="M590 52 h20"/>
+  </g>
+  <text class="b" x="624" y="57">Visitors on the internet</text>
+  <path class="line" d="M708 74 V104" marker-end="url(#arrow)"/>
+
+  <rect class="blue" x="528" y="108" width="360" height="44" rx="10"/>
+  <g class="icon i-blue">
+    <rect x="548" y="128" width="22" height="12" rx="2.5"/>
+    <path d="M553 128 l-3 -6 M565 128 l3 -6 M554 134 h2 M559 134 h2"/>
+  </g>
+  <text x="582" y="135"><tspan class="b">Router</tspan><tspan class="m" dx="8">80 → 8080 · 443 → 8443</tspan></text>
+  <path class="line" d="M708 152 V190" marker-end="url(#arrow)"/>
 
   <!-- Host -->
-  <rect class="panel" x="40" y="204" width="640" height="432" rx="12"/>
-  <text class="h" x="64" y="236">Seterlab</text>
-  <text class="m" x="64" y="255">Ubuntu Server</text>
-  <text class="m" x="656" y="236" text-anchor="end">rootless Podman, run by systemd</text>
+  <rect class="panel" x="30" y="204" width="900" height="550" rx="12"/>
+  <text class="h" x="54" y="236">Seterlab</text>
+  <text class="m" x="54" y="255">Ubuntu Server</text>
 
-  <rect class="gate" x="334" y="194" width="52" height="22" rx="6"/>
-  <text class="s" x="360" y="209.5" text-anchor="middle">ufw</text>
-  <path class="line" d="M360 216 V272" marker-end="url(#arrow)"/>
+  <rect class="gate" x="226" y="194" width="52" height="22" rx="6"/>
+  <text class="s" x="252" y="209.5" text-anchor="middle">ufw</text>
+  <path class="line" d="M252 216 V328" marker-end="url(#arrow)"/>
 
-  <!-- Nginx -->
-  <rect class="green" x="80" y="276" width="560" height="64" rx="10"/>
+  <rect class="gate" x="682" y="194" width="52" height="22" rx="6"/>
+  <text class="s" x="708" y="209.5" text-anchor="middle">ufw</text>
+  <path class="line" d="M708 216 V328" marker-end="url(#arrow)"/>
+
+  <!-- Private account -->
+  <rect class="account" x="54" y="268" width="396" height="354" rx="10"/>
+  <text class="b" x="74" y="296">petterjy</text>
+  <text class="m" x="74" y="314">tailnet only</text>
+
+  <rect class="green" x="74" y="332" width="356" height="76" rx="10"/>
   <g class="icon i-green">
-    <rect x="98" y="301" width="16" height="12" rx="2.5"/>
-    <path d="M101.5 301 v-4 a4.5 4.5 0 0 1 9 0 v4"/>
+    <rect x="92" y="351" width="16" height="12" rx="2.5"/>
+    <path d="M95.5 351 v-4 a4.5 4.5 0 0 1 9 0 v4"/>
   </g>
-  <text class="b" x="128" y="302">Nginx container</text>
-  <text class="m" x="128" y="322">ports 80 and 443 · wildcard TLS for *.seterlab.no</text>
+  <text class="b" x="122" y="356">Nginx</text>
+  <text class="m" x="122" y="376">80 and 443 · wildcard cert, DNS-01</text>
+  <text class="s" x="122" y="396">one server block per subdomain</text>
 
-  <path class="line" d="M166 340 V380" marker-end="url(#arrow)"/>
-  <path class="line" d="M360 340 V380" marker-end="url(#arrow)"/>
-  <path class="line" d="M554 340 V380" marker-end="url(#arrow)"/>
-  <text class="s" x="176" y="365">HTTP by container name</text>
+  <path class="line" d="M252 408 V438" marker-end="url(#arrow)"/>
+  <text class="s" x="262" y="428">HTTP by container name</text>
 
-  <!-- Stack networks -->
-  <g>
-    <rect class="purple" x="80" y="384" width="172" height="80" rx="10" stroke-dasharray="5 3"/>
-    <text class="s" x="94" y="405">stack network</text>
-    <rect class="chip" x="94" y="418" width="68" height="30" rx="7"/>
-    <text class="m" x="128" y="437.5" text-anchor="middle">service</text>
-    <rect class="chip" x="170" y="418" width="68" height="30" rx="7"/>
-    <text class="m" x="204" y="437.5" text-anchor="middle">service</text>
+  <rect class="purple" x="74" y="442" width="171" height="48" rx="10" stroke-dasharray="5 3"/>
+  <text class="m" x="159.5" y="470.5" text-anchor="middle">media</text>
+  <rect class="purple" x="259" y="442" width="171" height="48" rx="10" stroke-dasharray="5 3"/>
+  <text class="m" x="344.5" y="470.5" text-anchor="middle">homepage</text>
+  <rect class="purple" x="74" y="502" width="171" height="48" rx="10" stroke-dasharray="5 3"/>
+  <text class="m" x="159.5" y="530.5" text-anchor="middle">crafty</text>
+  <rect class="purple" x="259" y="502" width="171" height="48" rx="10" stroke-dasharray="5 3"/>
+  <text class="m" x="344.5" y="530.5" text-anchor="middle">flybymedia</text>
+
+  <text class="mono" x="74" y="604">quadlet/ nginx/ homepage/ → git pull</text>
+
+  <!-- Isolation between the accounts -->
+  <path class="wall" d="M480 274 V377 M480 507 V616"/>
+  <text class="s" x="480" y="442" text-anchor="middle" transform="rotate(-90 480 442)" dy="4">isolated accounts</text>
+
+  <!-- Public account -->
+  <rect class="account" x="510" y="268" width="396" height="354" rx="10"/>
+  <text class="b" x="530" y="296">public</text>
+  <text class="m" x="530" y="314">internet-facing</text>
+
+  <rect class="green" x="530" y="332" width="356" height="76" rx="10"/>
+  <g class="icon i-green">
+    <rect x="548" y="351" width="16" height="12" rx="2.5"/>
+    <path d="M551.5 351 v-4 a4.5 4.5 0 0 1 9 0 v4"/>
   </g>
-  <g>
-    <rect class="purple" x="274" y="384" width="172" height="80" rx="10" stroke-dasharray="5 3"/>
-    <text class="s" x="288" y="405">stack network</text>
-    <rect class="chip" x="326" y="418" width="68" height="30" rx="7"/>
-    <text class="m" x="360" y="437.5" text-anchor="middle">service</text>
-  </g>
-  <g>
-    <rect class="purple" x="468" y="384" width="172" height="80" rx="10" stroke-dasharray="5 3"/>
-    <text class="s" x="482" y="405">stack network</text>
-    <rect class="chip" x="482" y="418" width="68" height="30" rx="7"/>
-    <text class="m" x="516" y="437.5" text-anchor="middle">service</text>
-    <rect class="chip" x="558" y="418" width="68" height="30" rx="7"/>
-    <text class="m" x="592" y="437.5" text-anchor="middle">service</text>
-  </g>
+  <text class="b" x="578" y="356">Nginx</text>
+  <text class="m" x="578" y="376">8080 and 8443 · a cert per site, HTTP-01</text>
+  <text class="s" x="578" y="396">also serves seterlab.no from web/</text>
+
+  <path class="line" d="M708 408 V438" marker-end="url(#arrow)"/>
+  <text class="s" x="718" y="428">HTTP, looked up per request</text>
+
+  <rect class="purple" x="530" y="442" width="356" height="70" rx="10" stroke-dasharray="5 3"/>
+  <text class="s" x="544" y="461">rental</text>
+  <rect class="chip" x="544" y="472" width="120" height="30" rx="7"/>
+  <text class="m" x="604" y="491.5" text-anchor="middle">rental-web</text>
+  <rect class="chip" x="680" y="472" width="120" height="30" rx="7"/>
+  <text class="m" x="740" y="491.5" text-anchor="middle">rental-api</text>
+
+  <rect class="purple" x="530" y="526" width="356" height="56" rx="10" stroke-dasharray="5 3"/>
+  <text class="s" x="544" y="559">rental-db · internal</text>
+  <rect class="chip" x="680" y="540" width="120" height="30" rx="7"/>
+  <text class="m" x="740" y="559.5" text-anchor="middle">rental-db</text>
+  <path class="line" d="M740 502 V538" marker-end="url(#arrow)"/>
+
+  <text class="mono" x="530" y="604">public/ → copied to public</text>
 
   <!-- Bind mounts -->
-  <path class="dots" d="M166 466 V494 M360 466 V494 M554 466 V494 M166 494 H554"/>
-  <path class="line" d="M360 494 V516" marker-end="url(#arrow)"/>
-  <text class="s" x="372" y="510">bind mounts</text>
+  <path class="dots" d="M252 622 V642 M708 622 V642 M252 642 H708"/>
+  <path class="line" d="M480 642 V658" marker-end="url(#arrow)"/>
+  <text class="s" x="490" y="655">bind mounts</text>
 
   <!-- Storage -->
-  <rect class="orange" x="80" y="520" width="560" height="84" rx="10"/>
+  <rect class="orange" x="54" y="662" width="852" height="68" rx="10"/>
   <g class="icon i-orange">
-    <ellipse cx="164" cy="548" rx="12" ry="4"/>
-    <path d="M152 548 v22 a12 4 0 0 0 24 0 v-22"/>
-    <path d="M152 559 a12 4 0 0 0 24 0"/>
-    <ellipse cx="466" cy="548" rx="12" ry="4"/>
-    <path d="M454 548 v22 a12 4 0 0 0 24 0 v-22"/>
-    <path d="M454 559 a12 4 0 0 0 24 0"/>
+    <ellipse cx="110" cy="682" rx="12" ry="4"/>
+    <path d="M98 682 v22 a12 4 0 0 0 24 0 v-22"/>
+    <path d="M98 693 a12 4 0 0 0 24 0"/>
+    <ellipse cx="560" cy="682" rx="12" ry="4"/>
+    <path d="M548 682 v22 a12 4 0 0 0 24 0 v-22"/>
+    <path d="M548 693 a12 4 0 0 0 24 0"/>
   </g>
-  <text class="b" x="190" y="557">NVMe</text>
-  <text class="m" x="190" y="577">system, images, app data</text>
-  <text class="b" x="492" y="557">HDD</text>
-  <text class="m" x="492" y="577">bulk data</text>
+  <text class="b" x="136" y="691">NVMe</text>
+  <text class="m" x="136" y="711">system, images, each account's app data</text>
+  <text class="b" x="586" y="691">HDD</text>
+  <text class="m" x="586" y="711">bulk data</text>
 </svg>

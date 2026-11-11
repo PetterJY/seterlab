@@ -1,0 +1,24 @@
+[Unit]
+Description=Aalesund Rental database
+
+[Container]
+Image=docker.io/library/mysql:8.4
+ContainerName=rental-db
+HostName=rental-db
+AutoUpdate=registry
+
+Network=rental-db.network
+
+Environment=MYSQL_ROOT_PASSWORD=admin123
+Environment=MYSQL_DATABASE=rental
+Environment=MYSQL_USER=admin
+Environment=MYSQL_PASSWORD=admin123
+
+Volume=%h/.appdata/seterlab/rental/rental-db:/var/lib/mysql:Z
+Volume=%h/.appdata/seterlab/rental/seed:/docker-entrypoint-initdb.d:ro,Z
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

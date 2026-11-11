@@ -1,0 +1,26 @@
+[Unit]
+Description=Public Nginx reverse proxy
+
+[Container]
+Image=docker.io/library/nginx:stable-trixie
+ContainerName=nginx
+HostName=nginx
+AutoUpdate=registry
+
+Network=nginx.network
+Network=rental.network
+PublishPort=8080:8080
+PublishPort=8443:8443
+
+Volume=%h/repos/seterlab/nginx/conf.d:/etc/nginx/conf.d:ro,Z
+Volume=%h/repos/seterlab/web:/usr/share/nginx/html:ro,Z
+Volume=%h/.appdata/seterlab/certbot/config:/etc/letsencrypt:ro,z
+Volume=%h/.appdata/seterlab/certbot/webroot:/var/www/acme:ro,z
+
+NoNewPrivileges=true
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

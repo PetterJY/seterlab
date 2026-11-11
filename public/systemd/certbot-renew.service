@@ -1,0 +1,11 @@
+[Unit]
+Description=Renew the public sites' certificates
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/certbot renew --quiet \
+    --config-dir %h/.appdata/seterlab/certbot/config \
+    --work-dir %h/.appdata/seterlab/certbot/work \
+    --logs-dir %h/.appdata/seterlab/certbot/logs

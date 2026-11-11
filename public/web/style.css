@@ -1,0 +1,29 @@
+:root {
+  color-scheme: light dark;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  max-width: 40rem;
+  margin: 4rem auto;
+  padding: 0 1.5rem;
+  line-height: 1.5;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin: 1rem 0;
+}
+
+a {
+  font-weight: 600;
+}
+
+p.note {
+  margin: 0.25rem 0 0;
+  opacity: 0.75;
+}
