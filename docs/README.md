@@ -8,14 +8,15 @@ Configuration for Seterlab, my home server: a Lenovo V50s SFF running Ubuntu Ser
 
 Every service runs as a rootless Podman container, with one `.container` file per service and one `.network` file per stack. The apps' own data, like databases and settings, lives on the server and isn't in this repo.
 
+## Public and private services
+
 The services are split between two Linux accounts:
 
 | Account | Runs | Reached from | Config |
 | --- | --- | --- | --- |
 | `petterjy` | My private services | The tailnet only | `private/` |
-| `public` | My public services, like the rental site | The internet | `public/` |
+| `public` | My public services| The internet | `public/` |
 
-## Public services
 
 The repo keeps everything for its public services in `public/`. That folder is copied to a separate `public` account on the server, which can't read the private account's files or open connections to the host, the LAN or the tailnet.
 
