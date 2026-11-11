@@ -165,7 +165,6 @@
   <!-- Bind mounts -->
   <path class="dots" d="M252 622 V642 M708 622 V642 M252 642 H708"/>
   <path class="line" d="M480 642 V658" marker-end="url(#arrow)"/>
-  <text class="s" x="490" y="655">bind mounts</text>
 
   <!-- Storage -->
   <rect class="orange" x="54" y="662" width="852" height="68" rx="10"/>
