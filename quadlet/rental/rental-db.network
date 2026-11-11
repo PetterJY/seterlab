@@ -1,8 +1,0 @@
-[Unit]
-Description=Network for the rental database.
-
-[Network]
-NetworkName=rental-db
-
-# The database only talks to the API, so it gets no internet access
-Internal=true

@@ -5,39 +5,39 @@
 - Streaming:
     - Jellyfin:
         icon: /icons/jellyfin.png
-        href: http://jellyfin.seterlab.no/
+        href: https://jellyfin.seterlab.no/
         description: Media Server
     - Seerr:
         icon: /icons/seerr.png
-        href: http://seerr.seterlab.no/
+        href: https://seerr.seterlab.no/
         description: Media Discovery
     - Sonarr:
         icon: /icons/sonarr.png
-        href: http://Sonarr.seterlab.no/
+        href: https://Sonarr.seterlab.no/
         description: TV Show Management
     - Radarr:
         icon: /icons/radarr.png
-        href: http://Radarr.seterlab.no/
+        href: https://Radarr.seterlab.no/
         description: Movie Management
     - Prowlarr:
         icon: /icons/prowlarr.png
-        href: http://Prowlarr.seterlab.no/
+        href: https://Prowlarr.seterlab.no/
         description: Indexer Management
     - SABnzbd:
         icon: /icons/sabnzbd-light.png
-        href: http://SABnzbd.seterlab.no/
+        href: https://SABnzbd.seterlab.no/
         description: Usenet Downloader
 
 - Websites:
     - Crafty:
         icon: /icons/crafty.svg
-        href: http://crafty.seterlab.no
+        href: https://crafty.seterlab.no
         description: Minecraft Server
     - Ålesund Rental:
         icon: /icons/rental.png
-        href: http://rental.seterlab.no
+        href: https://rental.seterlab.no
         description: Website for Ålesund Rental
     - FlyByMedia:
         icon: /icons/flybymedia.png
-        href: http://flybymedia.seterlab.no
+        href: https://flybymedia.seterlab.no
         description: Website for Fly-By-Media

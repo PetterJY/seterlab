@@ -1,5 +1,0 @@
-[Unit]
-Description=Network for rental.
-
-[Network]
-NetworkName=rental
