@@ -1,0 +1,17 @@
+[Unit]
+Description=Aalesund Rental website
+
+[Container]
+Image=localhost/rental-web:latest
+ContainerName=rental-web
+HostName=rental-web
+
+Network=rental.network
+
+NoNewPrivileges=true
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
