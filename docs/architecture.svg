@@ -124,7 +124,7 @@
   <rect class="purple" x="259" y="502" width="171" height="48" rx="10" stroke-dasharray="5 3"/>
   <text class="m" x="344.5" y="530.5" text-anchor="middle">flybymedia</text>
 
-  <text class="mono" x="74" y="604">quadlet/ nginx/ homepage/ → git pull</text>
+  <text class="mono" x="74" y="604">private/ → git pull</text>
 
   <!-- Isolation between the accounts -->
   <path class="wall" d="M480 274 V377 M480 507 V616"/>
