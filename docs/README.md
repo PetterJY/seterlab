@@ -23,9 +23,9 @@ The repo keeps everything for its public services in `public/`. That folder is c
 
 Each account has its own Nginx container. HTTP only redirects to HTTPS, and TLS ends at Nginx. The traffic from Nginx to the services is mostly plain HTTP, which never leaves the host. Each stack has its own Podman network, and Nginx joins them to reach each service by container name.
 
-The private Nginx listens on ports 80 and 443 and serves every private subdomain with a certificate. Its config is in `nginx/conf.d/`, with one server block per subdomain.
+The private Nginx listens on ports 80 and 443. Its config is in `nginx/conf.d/`, with one server block per subdomain.
 
-The public Nginx listens on ports 8080 and 8443, which the router forwards from ports 80 and 443 on the internet. Its config is in `public/nginx/conf.d/`. It serves `seterlab.no`, the home page, and refuses any name it doesn't serve. Each public site has its own certificate, checked over HTTP, so the account holds no DNS credentials.
+The public Nginx listens on ports 8080 and 8443, which the router forwards from ports 80 and 443 on the internet. Its config is in `public/nginx/conf.d/`. Each public site has its own certificate, checked over HTTP, so the account holds no DNS credentials.
 
 ## Tailscale
 
